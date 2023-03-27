@@ -1,0 +1,1 @@
+/usr/bin/g++  -g  -rdynamic CMakeFiles/charging_station.dir/main.cpp.o  -o charging_station 
