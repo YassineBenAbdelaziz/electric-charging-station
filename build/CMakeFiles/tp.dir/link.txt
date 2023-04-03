@@ -1,1 +1,0 @@
-/usr/bin/g++  -g  -rdynamic CMakeFiles/tp.dir/main.cpp.o  -o tp 

@@ -1,7 +1,0 @@
-[
-{
-  "directory": "/home/mushishi/Coding/C++/electric-charging-station/build",
-  "command": "/usr/bin/g++   -I/home/mushishi/Coding/C++/electric-charging-station/include  -g   -o CMakeFiles/charging_station.dir/main.cpp.o -c /home/mushishi/Coding/C++/electric-charging-station/main.cpp",
-  "file": "/home/mushishi/Coding/C++/electric-charging-station/main.cpp"
-}
-]
