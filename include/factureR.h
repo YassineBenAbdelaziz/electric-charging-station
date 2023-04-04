@@ -21,6 +21,8 @@ public:
     void setSession(sessionReserve* s) {sess = s ;}
     sessionReserve* getSession() {return sess ;} 
 
+    void appliquerRemise() ;
+
     friend ostream & operator << (ostream &out, const factureR& f ) ;
     friend istream& operator>>(istream& in, factureR& f) ;
 };

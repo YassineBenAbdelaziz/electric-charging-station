@@ -20,12 +20,18 @@ public:
     factureC(int num , Date d , bool im  , client* cl) ;
     ~factureC() ;
 
-    bool est_impaye() {return impaye ;}
+    
     int getNum() { return numFacture ;}
-    void payer() {impaye = false ;}
     float getMontant() {return montant ;}
-    void setClient(client* cl) { this->cl = cl ;}
     client* getClient() { return cl ;}
+
+    void setClient(client* cl) { this->cl = cl ;}
+
+    bool est_impaye() {return impaye ;}
+    void payer() {impaye = false ;}
+    
+
+    virtual void appliquerRemise() ;
     virtual float calculPrix()=0 ;
 
 

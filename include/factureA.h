@@ -19,6 +19,8 @@ public:
     float calculPrix() ;
     void setChargeur(chargeurD* c) { ch = c ;}
 
+    void appliquerRemise();
+
     friend ostream & operator << (ostream &out, const factureA& f ) ;
     friend istream& operator>>(istream& in, factureA& f) ;
 };
