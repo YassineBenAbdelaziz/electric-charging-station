@@ -31,6 +31,7 @@ public:
     void payer() {impaye = false ;}
     
 
+    virtual void afficherFacture() ;
     virtual void appliquerRemise() ;
     virtual float calculPrix()=0 ;
 
