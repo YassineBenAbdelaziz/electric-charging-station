@@ -11,87 +11,89 @@
 #include "chargeurL.h"
 #include <vector>
 
-
-
-using namespace std ;
+using namespace std;
 
 class station
 {
 private:
-    int id ;
-    string designation ;
-    string adresse ;
-    vector<session*> sessions ;
-    vector<client*> clients ;
-    vector<factureC*> factures ;
-    vector<voiture*> voitures ;
-    vector<chargeurD*> chargeursD ;
-    vector<chargeurL*> chargeursL ;
+    int id;
+    string designation;
+    string adresse;
+    vector<session *> sessions;
+    vector<client *> clients;
+    vector<factureC *> factures;
+    vector<voiture *> voitures;
+    vector<chargeurD *> chargeursD;
+    vector<chargeurL *> chargeursL;
+    vector<admin *> admins;
 
 public:
-    station() ;
-    station(int id , string des , string adr  ) ;
-    ~station() ;
+    station();
+    station(int id, string des, string adr);
+    ~station();
 
-    void saisir() ;
-    void afficherSessionDispo() ; // print sessions dispo
-    bool sessionDispo(Date d , temps t) ;
-    bool sessionDispo(int n) ; // check session dispo at a certain date and time
-    void reserverSession(client* cl) ;
-    void annulerReservation(client* cl) ;
-    client* findClientById(int n) ;
-    chargeurL* findPortByNum(int n);
-    chargeurD* findChargeurById(int n);
-    factureR* findFactureByNum(int n);
-    voiture* findVoitureByImat(string str) ;
-    sessionReserve* findSessionReserveById(int n) ;
-    session* findSessionById(int n);
+    void saisir();
+    void afficherSessionDispo(); // print sessions dispo
+    bool sessionDispo(Date d, temps t);
+    bool sessionDispo(int n); // check session dispo at a certain date and time
+    void reserverSession(client *cl);
+    void annulerReservation(client *cl);
 
-    void ajouterSession(session* s) ;
-    void deleteSession(int id) ;
+    client *findClientById(int n);
+    admin *findAdminById(int n);
+    chargeurL *findPortByNum(int n);
+    chargeurD *findChargeurById(int n);
+    factureR *findFactureByNum(int n);
+    voiture *findVoitureByImat(string str);
+    sessionReserve *findSessionReserveById(int n);
+    session *findSessionById(int n);
 
-    void ajouterVoiture(voiture* v) ;
-    void deleteVoiture(voiture* v) ;
+    void ajouter(admin *a);
+    void ajouter(session *s);
+    void ajouter(voiture *v);
+    void ajouter(client *c);
+    void ajouter(factureC *f);
+    void ajouter(chargeurD *d);
+    void ajouter(chargeurL *l);
 
-    void ajouterClient(client* c) ;
-    void deleteClient(client* c) ;
+    void deleteSession(int id);
+    void deleteVoiture(voiture *v);
+    void deleteClient(client *c);
+    void deleteFacture(factureC *f);
+    void deleteChargeurD(int n);
+    void deleteChargeurL(int n);
 
-    void ajouterFacture(factureC* f) ;
-    void deleteFacture(factureC* f )  ;
+    void LoadAdmins();
+    void StoreAdmins();
+    void printAdmins();
 
-    void ajouterChargeurD(chargeurD* d)  ;
-    void deleteChargeurD(int n) ;
+    void LoadClients();
+    void StoreClients();
+    void printClients();
 
-    void ajouterChargeurL(chargeurL* l)  ;
-    void deleteChargeurL(int n );
+    void LoadVoitures();
+    void StoreVoitures();
+    void printVoitures();
 
-    void LoadClients() ;
-    void StoreClients() ;
-    void printClients() ;
+    void LoadChargeursD();
+    void StoreChargeursD();
+    void printChargeursD();
 
-    void LoadVoitures() ;
-    void StoreVoitures() ;
-    void printVoitures() ;
+    void LoadChargeursL();
+    void StoreChargeursL();
+    void printChargeursL();
 
-    void LoadChargeursD() ;
-    void StoreChargeursD() ;
-    void printChargeursD() ;
+    void LoadSessions();
+    void StoreSessions();
+    void printSessions();
 
-    void LoadChargeursL() ;
-    void StoreChargeursL() ;
-    void printChargeursL() ;
+    void LoadFactures();
+    void StoreFactures();
+    void printFactures();
 
-    void LoadSessions() ;
-    void StoreSessions() ;
-    void printSessions() ;
+    void Load();
+    void Store();
 
-    void LoadFactures() ; 
-    void StoreFactures()  ;
-    void printFactures() ;
-
-    void Load() ;
-    void Store() ;
-
-    friend ostream & operator << (ostream &out, const station& st ) ;
-    friend istream& operator>>(istream& in, station& st) ;
+    friend ostream &operator<<(ostream &out, const station &st);
+    friend istream &operator>>(istream &in, station &st);
 };
