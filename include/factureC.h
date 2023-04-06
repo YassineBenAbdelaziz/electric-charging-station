@@ -17,8 +17,9 @@ protected:
 
 public:
     factureC() ;
+    factureC(const factureC& f) ;
     factureC(int num , Date d , bool im  , client* cl) ;
-    ~factureC() ;
+    virtual ~factureC() ;
 
     
     int getNum() { return numFacture ;}
@@ -30,6 +31,8 @@ public:
     bool est_impaye() {return impaye ;}
     void payer() {impaye = false ;}
     
+
+    void operator=(const factureC& f) ;
 
     virtual void afficherFacture() ;
     virtual void appliquerRemise() ;
