@@ -15,6 +15,7 @@ using namespace std ;
 class client
 {
 private:
+    static int nb_clients ;
     int id ;
     string nom ;
     string prenom ;
@@ -25,8 +26,11 @@ private:
     vector <factureR*> facturesR ;
     vector <factureA*> facturesA ;
     vector <sessionReserve*> sessions ;
+    
 public:
+    
     client()  ;
+    client(const client& c)  ;
     client(int id , string nom , string prenom , string adresse , int tel, float sold)  ;
     ~client()  ;
 
@@ -49,6 +53,8 @@ public:
     void ajouterVoiture(voiture*  v) ;
     void ajouterFacture(factureC*  f) ;
     void ajouterSession(sessionReserve*  s) ;
+
+    static int nombreClient() {return nb_clients;}
 
     friend ostream & operator << (ostream &out, const client& c ) ;
     friend istream& operator>>(istream& in, client& c) ;
