@@ -6,7 +6,7 @@
 CMakeFiles/
 build/
 
-
+commit.sh
 
 # Compiled Object files
 *.slo
