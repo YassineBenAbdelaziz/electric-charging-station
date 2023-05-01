@@ -3,62 +3,62 @@
 
 using namespace std;
 
-chargeurP::chargeurP() : chargeurL() {
-    
-}
-
-
-
-chargeurP::chargeurP(chargeurL c , float tax) : chargeurL(c) , Tax(tax)
+chargeurP::chargeurP() : chargeurL()
 {
-    
 }
 
+chargeurP::chargeurP(chargeurL c, float tax) : chargeurL(c), Tax(tax)
+{
+}
 
-
-
-ostream & operator << (ostream &out, const chargeurP&  c) {
-    if ( &out == &cout ) {
-        out << "\nId : " << c.id << endl ;
-        out << "Puissance : " << c.puissance << endl ;
+ostream &operator<<(ostream &out, const chargeurP &c)
+{
+    if (&out == &cout)
+    {
+        out << "\nId : " << c.id << endl;
+        out << "Numero port : " << c.numero_port << endl;
+        out << "Puissance : " << c.puissance << endl;
         out << "Debit : " << c.debit << endl;
-        out << "Prix : "  << c.prixKW << endl ;
-        out << "Status : " << c.status << endl ;
-        out << "Tax : " << c.Tax ;
+        out << "Prix : " << c.prixKW << endl;
+        out << "Status : " << c.status << endl;
+        out << "Tax : " << c.Tax;
     }
-    else {
-        out << c.id << " "<< c.puissance << " "<< c.debit << " "<< c.prixKW << " "<< c.status 
-        << " "<< c.Tax ;
+    else
+    {
+        out << c.id << " " << c.numero_port << " " << c.puissance << " " << c.debit << " " << c.prixKW << " " << c.status
+            << " " << c.Tax;
     }
 
     return out;
 }
 
-
-istream& operator>>(istream& in, chargeurP& c)  {
-    if ( &in == &cin ) {
-        cout << "\nId : "  ;
-        in >> c.id  ;
-        cout << "Puissance : "  ;
-        in >> c.puissance  ;
-        cout << "Debit : "  ;
-        in >> c.debit ;
-        cout << "Prix : "   ;
-        in >> c.prixKW  ;
-        cout << "Status : "  ;
-        in >> c.status  ;
-        cout << "Tax : "  ;
-        in >> c.Tax ;
+istream &operator>>(istream &in, chargeurP &c)
+{
+    if (&in == &cin)
+    {
+        cout << "\nId : ";
+        in >> c.id;
+        cout << "Numero port : ";
+        in >> c.numero_port;
+        cout << "Puissance : ";
+        in >> c.puissance;
+        cout << "Debit : ";
+        in >> c.debit;
+        cout << "Prix : ";
+        in >> c.prixKW;
+        cout << "Status : ";
+        in >> c.status;
+        cout << "Tax : ";
+        in >> c.Tax;
     }
-    else {
-        in >> c.id >> c.puissance >> c.debit >> c.prixKW >> c.status >> c.Tax  ;
+    else
+    {
+        in >> c.id >> c.numero_port >> c.puissance >> c.debit >> c.prixKW >> c.status >> c.Tax;
     }
 
-    return in;    
+    return in;
 }
 
-
-
-chargeurP::~chargeurP() {
-    
+chargeurP::~chargeurP()
+{
 }
