@@ -7,6 +7,7 @@
 #include "date.h"
 #include "temps.h"
 #include <vector>
+#include <list>
 
 using namespace std ;
 
@@ -22,7 +23,7 @@ private:
     string adresse ;
     int telephone ;
     float solde ;
-    vector <voiture*> voitures ;
+    list <voiture*> voitures ;
     vector <factureR*> facturesR ;
     vector <factureA*> facturesA ;
     vector <sessionReserve*> sessions ;
@@ -53,9 +54,11 @@ public:
     void ajouterVoiture(voiture*  v) ;
     void ajouterFacture(factureC*  f) ;
     void ajouterSession(sessionReserve*  s) ;
-
+    
+    
     static int nombreClient() {return nb_clients;}
 
+    client& operator=(const client &c) ;
     friend ostream & operator << (ostream &out, const client& c ) ;
     friend istream& operator>>(istream& in, client& c) ;
 };
