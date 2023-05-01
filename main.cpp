@@ -10,6 +10,7 @@ int main(int, char **)
     station st;
     int n, id, m, choix;
     client *c;
+    factureR *f;
     admin *a;
     bool quit = false;
     float montant;
@@ -62,7 +63,10 @@ int main(int, char **)
                     cout << "9) Afficher Facture Impayés" << endl;
                     cout << "10) Payer Facture" << endl;
                     cout << "11) Charger Voiture" << endl;
-                    cout << "12) Quitter" << endl;
+                    cout << "12) Stop Charging" << endl;
+                    cout << "13) Afficher Chargeurs en vente" << endl;
+                    cout << "14) Acheter Chargeur" << endl;
+                    cout << "15) Quitter" << endl;
                     cout << ">>> ";
 
                     cin >> m;
@@ -102,12 +106,27 @@ int main(int, char **)
                         break;
                     case 10:
                         c->payerFacture();
-                        cout << endl ;
+                        cout << endl;
                         break;
                     case 11:
-                        // start charging
+                        c->startCharging();
+                        cout << endl;
                         break;
                     case 12:
+                        f = c->stopCharging();
+                        if (f)
+                            st.ajouter(f);
+                        cout << endl;
+                        break;
+                    case 13:
+                        st.printChargeursD();
+                        cout << endl;
+                        break;
+                    case 14:
+                        st.acheterChargeur(c);
+                        cout << endl;
+                        break;
+                    case 15:
                         login = false;
                         break;
                     default:
@@ -180,7 +199,7 @@ int main(int, char **)
                         else if (choix == 2)
                             st.printChargeursD();
                         else
-                            cout << "Choix erroné" ;
+                            cout << "Choix erroné";
                         cout << endl;
                         break;
                     case 6:
