@@ -38,6 +38,7 @@ public:
     bool sessionDispo(int n); // check session dispo at a certain date and time
     void reserverSession(client *cl);
     void annulerReservation(client *cl);
+    void acheterChargeur(client *cl);
 
     client *findClientById(int n);
     admin *findAdminById(int n);

@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <fstream>
 #include "chargeurP.h"
+#include "factureA.h"
 
 using namespace std;
 
@@ -24,7 +25,7 @@ void station::afficherSessionDispo()
         {
             if (typeid(*sessions[i]) == typeid(session))
             {
-                
+
                 cout << *(sessions[i]);
                 cout << "\n*******************";
             }
@@ -70,6 +71,41 @@ bool station::sessionDispo(int n)
     }
 
     return false;
+}
+
+void station::acheterChargeur(client *cl)
+{
+
+    factureA *f = nullptr;
+    int n, q;
+    Date d;
+
+    cout << "\nEnter id chargeur : ";
+    cin >> n;
+
+    chargeurD *c = findChargeurById(n);
+
+    if (findChargeurById(n) == nullptr)
+    {
+        cout << "Chargeur non trouvé !";
+    }
+    else
+    {
+        cin >> d;
+        cout << "Entrer quantité : ";
+        cin >> q;
+        f = new factureA(factureA::id + 1, d, true, cl, q, c);
+        f->ajouterTax("Vente", 0.05);
+        f->ajouterTax("TVA", 0.12);
+        if (c->getPrix() > 4000)
+        {
+            f->ajouterTax("Luxe", 0.10);
+        }
+        f->calculMontant();
+
+        cl->ajouterFacture(f);
+        ajouter(f);
+    }
 }
 
 void station::saisir()
@@ -197,7 +233,7 @@ void station::deleteChargeurD(int n)
         chargeursD.erase(remove(chargeursD.begin(), chargeursD.end(), d), chargeursD.end());
         // maybe remove from file
         delete d;
-        cout << "Chargeur Supprime \n" ;
+        cout << "Chargeur Supprime \n";
     }
     else
         cout << "Id introuvable";
@@ -232,7 +268,7 @@ void station::deleteChargeurL(int n)
         chargeursL.erase(remove(chargeursL.begin(), chargeursL.end(), l), chargeursL.end());
         // maybe remove from file
         delete l;
-        cout << "Chargeur Supprime \n " ;
+        cout << "Chargeur Supprime \n ";
     }
     else
         cout << "Id introuvable";
@@ -498,10 +534,19 @@ void station::StoreChargeursD()
 
 void station::printChargeursD()
 {
-    for (int i = 0; i < chargeursD.size(); i++)
+    cout << "Chargeurs en vente : \n";
+    if (chargeursD.size() > 0)
     {
-        cout << *(chargeursD[i]);
+        for (int i = 0; i < chargeursD.size(); i++)
+        {
+
+            cout << *(chargeursD[i]);
+            cout << "\n*******************";
+        }
+        cout << endl;
     }
+    else
+        cout << "Aucune chargeur est disponible. \n";
 }
 
 void station::LoadChargeursL()
@@ -568,18 +613,26 @@ void station::StoreChargeursL()
 
 void station::printChargeursL()
 {
-    for (int i = 0; i < chargeursL.size(); i++)
+    cout << "Chargeurs Locales : \n";
+    if (chargeursL.size() > 0)
     {
-        if (typeid(*chargeursL[i]) == typeid(chargeurL))
+        for (int i = 0; i < chargeursL.size(); i++)
         {
-            cout << *(chargeursL[i]);
-        }
-        else
-        {
-            chargeurP *p = static_cast<chargeurP *>(chargeursL[i]);
-            cout << *p;
+            if (typeid(*chargeursL[i]) == typeid(chargeurL))
+            {
+                cout << *(chargeursL[i]);
+                cout << "\n****************\n";
+            }
+            else
+            {
+                chargeurP *p = static_cast<chargeurP *>(chargeursL[i]);
+                cout << *p;
+                cout << "\n****************\n";
+            }
         }
     }
+    else
+        cout << "Aucune chargeur est disponible. \n";
 }
 
 chargeurL *station::findPortByNum(int n)
@@ -624,6 +677,7 @@ voiture *station::findVoitureByImat(string str)
 
 sessionReserve *station::findSessionReserveById(int n)
 {
+
     for (int i = 0; i < sessions.size(); i++)
     {
         if (sessions[i]->getID() == n)
@@ -711,13 +765,13 @@ void station::printSessions()
         if (typeid(*sessions[i]) == typeid(session))
         {
             cout << *(sessions[i]);
-            cout << "\n****************" ;
+            cout << "\n****************";
         }
         else
         {
             sessionReserve *p = static_cast<sessionReserve *>(sessions[i]);
             cout << *p;
-            cout << "\n****************" ;
+            cout << "\n****************";
         }
     }
 }
@@ -726,7 +780,8 @@ void station::LoadFactures()
 {
     fstream f, g;
     int n;
-    string str;
+    float val;
+    string str, key;
 
     f.exceptions(ifstream::failbit | ifstream::badbit);
     g.exceptions(ifstream::failbit | ifstream::badbit);
@@ -781,6 +836,7 @@ void station::LoadFactures()
                 d->setChargeur(findChargeurById(n));
                 if (findChargeurById(n) == nullptr)
                     throw 2;
+
                 d->getClient()->ajouterFacture(d);
                 factures.push_back(d);
             }
@@ -797,8 +853,23 @@ void station::LoadFactures()
     }
     catch (ifstream::failure e)
     {
+        cout << e.what();
         cout << "Exception opening/reading/closing file\n";
     }
+}
+
+bool compare(const factureC *p, const factureC *q)
+{
+
+    if (typeid(*p) == typeid(*q))
+    {
+        return true;
+    }
+    else if (typeid(*p) == typeid(factureR))
+    {
+        return true;
+    }
+    return false;
 }
 
 void station::StoreFactures()
@@ -807,6 +878,8 @@ void station::StoreFactures()
 
     f.exceptions(ifstream::failbit | ifstream::badbit);
     g.exceptions(ifstream::failbit | ifstream::badbit);
+
+    sort(factures.begin(), factures.end(), compare);
 
     try
     {
